@@ -1,0 +1,41 @@
+<app-enseignantvabar></app-enseignantvabar>
+<div class="container">
+    <div class="info-matiere">
+        <h2>Votre Matiére</h2>
+        
+            <li>{{ currentUser.matiere.nomMat}}</li> <!--*ngFor="let matiere of matieres"--> <!--{{matiere.nomMat}}-->
+            
+    </div>
+    <hr> 
+
+    <h1>Liste de vos seances :</h1>
+
+    <table>
+        <thead>
+          <tr>
+            <th>Groupe</th>
+            <th>Date de séance</th>
+            <th>Heure de début</th>
+            <th>Heure de fin</th>
+            <th>Type de séance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let seance of listSeanceOfEns">                
+            <td>{{seance.groupe.nomGrp}}</td>
+            <td>{{seance.date|date:'yyyy-MM-dd'}}</td>
+            <td>{{seance.heureDebut}}</td>
+            <td>{{seance.heureFin}}</td>
+            <td>{{seance.type}}</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <p>Nombre Total des seances :{{listSeanceOfEns.length}}</p>
+      
+      
+
+  </div>
+
+
+

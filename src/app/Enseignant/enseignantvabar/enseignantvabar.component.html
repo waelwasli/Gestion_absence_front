@@ -1,0 +1,22 @@
+
+<nav>
+    <ul>
+      <li><a routerLink="/enseignement" routerLinkActive="active">Enseignement</a></li>
+      <li><a routerLink="/enseignant" routerLinkActive="active">Matiéres &amp; Séances</a></li>
+      <li><a routerLink="/creationseance"  routerLinkActive="active">Création de séance</a></li>
+      <li><a routerLink="/gestionabsence"  routerLinkActive="active">Gestion des absences</a></li>
+      <li><a routerLink="/liste"  routerLinkActive="active">Liste des absences</a></li>
+      <li><i class="fa-solid fa-bell "></i></li>
+      
+      <li class="profile">
+        <p>{{currentUser.firstName}},{{currentUser.lastName}}</p>  <img src="{{currentUser.imageUrl}}" alt="Photo de profil">
+       
+      </li>
+      <li><button class="btn btn-success" (click)="GoToLogin()">Déconnexion</button>
+      </li>
+        
+       
+          
+    </ul>
+  </nav>
+

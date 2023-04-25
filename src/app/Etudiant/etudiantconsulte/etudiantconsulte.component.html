@@ -1,0 +1,65 @@
+<nav>
+    <ul>
+      <li><a  routerLinkActive="active">Etudiant</a></li>
+      <li><a  routerLinkActive="active">Matiéres</a></li>
+      <li><a  routerLinkActive="active">seance</a></li>
+      <li><a routerLinkActive="active">absence</a></li>
+      <li><button class="btn btn-success" (click)="GoToLogin()">Deconneter</button></li>
+     
+    </ul>
+  </nav>
+
+
+
+<div class="container">
+ <div class="card">
+    <div class="card-header">
+      <h5 style="text-align: center;">CARTE D'ETUDIANT 2022-2023</h5> 
+    </div>
+   <div class="card-img"><img src="{{currentUser.imageUrl}}" alt="" width="150px" height="150px" class="card-photo"></div> 
+   <div class="card-donne">
+    <div class="card-item d-flex m-2">
+        <h6> <b>Nom Et Prenom:</b></h6>
+        <h6 class="card-nom">{{currentUser.firstName}} {{currentUser.lastName}}</h6>
+   </div>
+   <div class="card-item d-flex m-2">
+     <h6><b>Classe:</b> </h6>
+     <h6 class="card-groupe">{{currentUser.groupe.nomGrp}}</h6>
+ </div>
+   </div>
+ 
+ </div>
+</div>
+
+<!--Table D'absence-->
+
+<div class="container m-5">    
+                   
+    <h5>Table des Absences de vos Matiéres</h5>
+    <div class="form-group">
+      <select  id="type" name="matiereabs" class="form-control" required [(ngModel)]="matAbs"> <!--matAbs-->
+        <option value="">-- Sélectionnez un matiere --</option>
+        <option *ngFor="let mat of listMatiereofEtd" [ngValue]="mat">{{mat.nomMat}}</option>
+      </select>
+      <button (click)="displayidmat()" class="btn btn-success m-2 ">Consulter</button>
+    </div>
+    <table class="table mt-5 ">
+      <thead>
+        <tr>
+          <th scope="col">Nom du Matiere</th>
+          <th>Nombre D'absence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td>{{matAbs.nomMat}}</td>
+            <td><b>{{nombreAbs}}</b></td>
+        </tr>
+      </tbody>
+    </table>
+   
+    
+  </div>
+ 
+
+  

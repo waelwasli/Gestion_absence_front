@@ -1,0 +1,123 @@
+<app-enseignantvabar></app-enseignantvabar>
+
+<h2 style="margin: 10px;">Choisir Votre Séance:</h2>
+  <hr>
+   <div class="container">
+
+    <div>
+        <label for="date">Date seance:</label>
+        <input type="date"  id="date" name="date" [(ngModel)]="dateSeance">
+    </div>
+    
+   <div>
+    <label for="heuredebut">Heure de début:</label>
+    <input type="time"  id="heuredebut" name="heuredebut" [(ngModel)]="heureDebutS">
+   </div>
+   
+    <div>
+        <label for="heurefin">Heure de fin:</label>
+        <input type="time" id="heurefin" name="heurefin" [(ngModel)]="heureFinS">
+    </div>
+
+    
+    <div>
+        <button class="btn btn-primary" (click)="showTab()">afficher</button>
+    </div>
+   </div>
+   <div   class="infoenseignant" [hidden]="showTable" > <!---->
+    <h2 style="margin-top: 20px;">Info sur la Séance:</h2>
+   
+    <div>
+        <table >
+            <thead>
+              <tr>
+                <th>Groupe</th>
+                <th>Date de séance</th>
+                <th>Heure de début</th>
+                <th>Heure de fin</th>
+                <th>Type de séance</th>
+              </tr>
+            </thead>
+            <tbody>
+                
+             <tr>
+                <td>{{ nomGrpFiltred }}</td>  
+                <td>{{ seanceFiltered.date }}</td>
+                <td>{{ seanceFiltered.heureDebut }}</td>
+                <td>{{ seanceFiltered.heureFin }}</td>
+                <td>{{ seanceFiltered.type }}</td>
+              </tr>
+            </tbody>
+          </table>
+     </div>
+     <!--  -->
+     <div style="margin-top: 20px;">
+        <h2>Liste des Etudiants:</h2>
+       
+        <table>
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Affecter une absence</th>
+                
+                
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let etd of etudiants">
+                <td>{{ etd.lastName }}</td>
+                <td>{{ etd.firstName}}</td>
+                <td><button class="btn" (click)="createAbsenceTo(etd.id)"><i class="fa-solid fa-plus"></i></button></td>
+              </tr>
+              
+            </tbody>
+          </table>
+          
+          <p><b> Nombre Total des etudians :{{etudiants.length}}</b></p>
+       
+          
+     </div>
+   </div>
+ 
+   
+  
+  <!--PopUp gestion absence
+
+  <div *ngIf="showPopupAbs" class="popup">
+    <h2>Affecter l'Absence :</h2>
+    <label>
+      <input type="radio" name="option" value="oui" >
+      Oui
+    </label>
+    <label>
+      <input type="radio" name="option" value="non" >
+      Non
+    </label>
+    <br>
+    <button class="btn btn-primary" (click)="affecter()">Affecter</button>
+  </div>
+-->
+  <!--POPUP ABS-->
+
+  <div class="popup" *ngIf="showPopupAbs" >
+    <div class="popup-content">
+      <span class="close">&times;</span>
+      
+         <div class="container">
+      <h2>Affecter l'Absence :</h2>
+      <hr>
+      <label>
+        <input type="radio" name="option" value="oui" ><!--[(ngModel)]="selectedOption"-->
+        Oui
+      </label>
+      <label>
+        <input type="radio" name="option" value="non" ><!--[(ngModel)]="selectedOption"-->
+        Non
+      </label>
+      <br>
+      <button class="btn btn-primary" (click)="affecter()">Affecter</button>
+          </div>
+  
+    </div>
+  </div>

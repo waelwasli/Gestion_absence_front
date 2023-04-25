@@ -1,0 +1,36 @@
+.container{
+    
+    width: 400px;
+    height: 400px;
+    margin-top: 200px;
+    margin-left: 550px;
+    border-radius: 5px ;
+  box-shadow: 2px 2px 1px 1px rgb(236, 236, 236);
+  background-color:    #F7F9F9;
+     
+}
+h2{
+    text-align: center;
+}
+.btn{
+    padding: 10px;
+}
+
+.loginEmail{
+  
+display: flex;
+align-items:center;
+}
+
+.subbtn{
+    margin-top: 40px;
+}
+
+.subbtn p{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.imglogin{
+    margin-left: 100px;
+}

@@ -1,0 +1,339 @@
+<div class="container">
+    <h4>Quel Type d'objet voulez vous choisir?</h4>
+    <div class="radio-buttons-container mt-5">
+        <label class="radio-button-label">
+          <input type="radio" id="1" name="etudiant" value="etudiant" [(ngModel)]="selectedvalue" class="radio-button-input">
+          Etudiant
+        </label>
+        <label class="radio-button-label">
+          <input type="radio" id="2" name="enseignant" value="enseignant" [(ngModel)]="selectedvalue" class="radio-button-input">
+         Enseignant
+        </label>
+
+        <label class="radio-button-label">
+          <input type="radio" id="3" name="groupe" value="groupe" [(ngModel)]="selectedvalue" class="radio-button-input">
+         Groupe
+        </label>
+
+        <label class="radio-button-label">
+          <input type="radio" id="3" name="matiere" value="matiere" [(ngModel)]="selectedvalue" class="radio-button-input">
+         Matiere
+        </label>
+
+        <button class="btn btn-primary" (click)="displayValue()">Afficher</button>
+      </div>   
+      
+      
+      <!--Table etudiant-->
+      <div *ngIf="selectedvalue ==='etudiant'">   <!---->                            <!--<div *ngIf="showEtudiant===true">  --> 
+        <h5>Liste des Etudiants</h5>
+        <input type="text" class="form-control" name="email" [(ngModel)]="email" (ngModelChange)="SearchEtd()"
+        placeholder="ecrire email"
+        >
+        <table class="table mt-5">
+         
+          <thead>
+            <tr>
+              <th scope="col">Photo</th>
+              <th scope="col">FirstName</th>
+              <th scope="col">LastName</th>
+              <th scope="col">Groupe</th>
+              <th scope="col">Email</th>
+             <!--<th>Affecter a un cours</th>--> 
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let etudiant of Listetudiants">
+              <td><img src="{{etudiant.imageUrl}}" class="img-fluid rounded-circle w-60" alt="ok" width="50px" height="50px"></td>
+              <td>{{etudiant.lastName}}</td>
+              <td>{{etudiant.firstName}}</td>
+              <td>{{etudiant.groupe.nomGrp}}</td>
+              <td>{{etudiant.email}}</td>
+             <!-- <td><button class="btn" (click)="displaypop()"><i class="fa-solid fa-graduation-cap"></i></button></td>-->
+
+              <td><button class="btn" (click)="deleteEtudiant(etudiant.id)"><i class="fa-solid fa-trash-can"></i></button>
+               <button  class="btn"  (click)="editEtudiant(etudiant.id)"><i class="fa-regular fa-pen-to-square"></i></button> 
+               </td>
+            </tr> <!---->
+          </tbody>
+        </table>
+
+        <p>Nombre Total des Etudiants:{{Listetudiants.length}}</p>
+        
+      </div>
+
+
+      <!--Table enseignant-->
+      <div *ngIf="selectedvalue ==='enseignant'">                               <!--<div *ngIf="showEnseignant===true"> -->
+        <h5>Liste des Enseignants</h5>
+        <input type="text" class="form-control" name="email" [(ngModel)]="email" (ngModelChange)="SearchEns()"
+        placeholder="ecrire email"
+        >
+        <table class="table mt-5">
+         
+          <thead>
+            <tr>
+              <th scope="col">Photo</th>
+              <th scope="col">FirstName</th>
+              <th scope="col">LastName</th>
+              <th scope="col">Email</th>
+              <th scope="col">Matiere</th>
+              <th>Affecter a un Groupe</th>
+             <!--<th scope="col">Groupe</th>--> 
+             
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let enseignant of Listenseignants">
+              <td><img src="{{enseignant.imageUrl}}" class="img-fluid rounded-circle w-60" alt="ok" width="50px" height="50px"></td>
+              <td>{{enseignant.firstName}}</td>
+              <td>{{enseignant.lastName}}</td>
+              <td>{{enseignant.email}}</td>
+              <td>{{enseignant.matiere.nomMat}}</td>
+              <!--<td>{{enseignant.groupe.nomGrp}}</td>-->
+              <td><button class="btn"  (click)="AffectGroupesToEns(enseignant.id)"><i class="fa-solid fa-graduation-cap"></i></button></td>
+
+              <td><button class="btn"(click)="deleteEnseignant(enseignant.id)" ><i class="fa-solid fa-trash-can"></i></button>
+                <button class="btn" (click)="editEnseignant(enseignant.id)"><i class="fa-regular fa-pen-to-square"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        
+        </table>
+
+        <p>Nombre Total des Enseignants:{{Listenseignants.length}}</p>
+        
+      </div>
+ 
+
+
+<!--table groupe-->
+
+  <div *ngIf="selectedvalue ==='groupe'">                     
+    <h5>Liste des Groupe</h5>
+    <table class="table mt-5 ">
+      <thead>
+        <tr>
+          <th scope="col">Nom du Groupe</th>
+          <th>Affecter a un cours</th> 
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let grp of listGroupe">
+          <td>{{grp.nomGrp}}</td>
+          <td><button class="btn"  (click)="AffectMatieresToGrp(grp.id)"><i class="fa-solid fa-graduation-cap"></i></button></td>
+            <!-- (click)="togglePopupAffMat()"-->
+          <td><button class="btn" (click)="deleteGroupe(grp.id)"><i class="fa-solid fa-trash-can"></i></button>
+           <!---->
+           </td>
+        </tr> <!-- <button  class="btn"  (click)="editGroupe(grp.id)"><i class="fa-regular fa-pen-to-square"></i></button> -->
+      </tbody>
+    </table>
+    <p>Nombre Total des Groupe:{{listGroupe.length}}</p>
+    
+  </div>
+
+  <!--table Matiere-->
+
+  <div *ngIf="selectedvalue ==='matiere'">                     
+    <h5>Liste des Matiere</h5>
+    <table class="table mt-5 ">
+      <thead>
+        <tr>
+          <th scope="col">Nom du Matiere</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mat of listMatiere">
+          <td>{{mat.nomMat}}</td>
+         <!-- <td><button class="btn"><i class="fa-solid fa-graduation-cap"></i></button></td>-->
+            <!-- (click)="displaypop()"-->
+          <td><button class="btn" (click)="deleteMatiere(mat.id)"><i class="fa-solid fa-trash-can"></i></button>
+           <!---->
+           </td>
+        </tr> <!-- <button  class="btn"  (click)="editGroupe(grp.id)"><i class="fa-regular fa-pen-to-square"></i></button> -->
+      </tbody>
+    </table>
+    <p>Nombre Total des Matieres:{{listMatiere.length}}</p>
+    
+  </div>
+  </div>
+
+
+
+
+
+
+
+<!--PopUp update Enseignant-->
+
+<div class="popup mb-10" *ngIf="showPopup">
+  <div class="popup-content">
+    <span class="close" (click)="togglePopup()">&times;</span>
+    
+<div class="container">
+    <h2>Update du Compte Enseignant</h2>
+    <hr>
+    <form (ngSubmit)="onUpdate()"> <!--(ngSubmit)="onUpdate()"-->
+        <div>
+            <label for="firstname" class="form-label">FirstName</label>
+            <input type="text" class="form-control" name="firstName" id="firstname" [(ngModel)]="enseignant.firstName" required>
+        </div>
+
+        <div>
+            <label for="lastname" class="form-label">LastName</label>
+            <input type="text" class="form-control" name="lastName" id="lastname" [(ngModel)]="enseignant.lastName" required>
+        </div>
+
+        <div>
+          <label for="email" class="form-label">Email address</label>
+          <input  pattern="^[a-zA-Z0-9._%+-]+@enseignant.enicar.tn$" type="email" class="form-control" name="email" id="email" [(ngModel)]="enseignant.email" required>
+        
+        </div>
+<!--
+        <div>
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="password" [(ngModel)]="enseignant.password" required>
+        </div>
+-->
+        <div class="mb-3">
+          <label for="matiere" class="form-label">Matiere</label>
+           <select  name="matiere" id="matiere" class="form-select" [(ngModel)]="enseignant.matiere"  required><!--[(ngModel)]="enseignant.matiereId"-->
+               <option *ngFor="let matiere of listMatiere" [ngValue]="matiere" >{{matiere.nomMat}}</option>
+               <!--*ngFor="let matiere of matieres" [ngValue]="matiere"-->
+           </select>
+         </div>
+   <!--
+          <div>
+              <label for="photo" class="form-label">Photo</label>
+              <input type="file" class="form-control" name="imageUrl"   id="photo" required>
+          </div>  
+          <div class="mb-3">
+            <label for="groupe" class="form-label">Groupe</label>
+            <select  name="groupe" id="groupe" class="form-select" [(ngModel)]="enseignant.groupe"  required> 
+               <option *ngFor="let groupe of listGroupe" [ngValue]="groupe" >{{groupe.nomGrp}}</option>
+           </select>
+           </div>
+          -->
+        <button type="submit" class="btn btn-primary form-control" >Update</button>
+      </form>
+</div>
+
+  </div>
+</div>
+
+<!--PopUp update etudiant-->
+
+<div class="popup" *ngIf="showPopupetd" >  
+  <div class="popup-content">                  
+  <span class="close" (click)="togglePopupetd()">&times;</span>   <!---->
+  
+ 
+<div class="container">
+  <h2>Update du Compte Etudiant</h2>
+  <hr>
+  <form (ngSubmit)="onUpdateEtudiant()">              
+      <div>
+          <label for="firstname" class="form-label">FirstName</label>
+          <input type="text" class="form-control" name="firstName" id="firstname" [(ngModel)]="etudiant.firstName" required>
+      </div>
+
+      <div>
+          <label for="lastname" class="form-label">LastName</label>
+          <input type="text" class="form-control" name="lastName" id="lastname" [(ngModel)]="etudiant.lastName" required >
+      </div>
+      <div>
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" name="email" id="email" [(ngModel)]="etudiant.email" required >
+      
+      </div>
+    <!--
+      <div>
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" name="password" id="password" [(ngModel)]="etudiant.password" required >
+      </div>
+        <div>
+            <label for="photo" class="form-label">Photo</label>
+            <input type="file" class="form-control" name="photo" id="photo"  required  >
+        </div>  
+        -->
+        <div class="mb-3">
+          <label for="groupe" class="form-label">Groupe</label>
+    <select  name="groupe" id="groupe" class="form-select"  [(ngModel)]="etudiant.groupe" required>
+      <option *ngFor="let groupe of listGroupe" [ngValue]="groupe">{{groupe.nomGrp}}</option>
+      
+    </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary form-control">Update</button>
+    </form>
+</div>
+</div>
+</div>
+
+<!---PoupUP affecter des matieres a un groupe-->
+
+<div class="popup" *ngIf=" showPopupAffMat">
+  <div class="popup-content">
+    <span class="close" (click)="togglePopupAffMat()">&times;</span>
+    
+       <div class="container">
+    <h2>Affectation des Matieres</h2>
+    <hr>
+    <form (ngSubmit)="onAttribueMat()">
+        <div class="mb-3">
+         
+            <label for="listMatiere" class="form-label">Matieres</label>
+            <ng-select [(ngModel)]="matiereSelectionnee" name="listMatiere" [multiple]="true" [closeOnSelect]="false">
+              <ng-option *ngFor="let matiere of listMatiere" [value]="matiere">{{matiere.nomMat}}</ng-option>
+           </ng-select>
+          <!-- <ng-select  [items]="listMatiere" [bindValue]="'id'" [bindLabel]="'nomMat'" (change)="ajouterMatiere($event)" [clearable]="true">
+              
+            </ng-select>--> 
+          
+          <button class="btn btn-primary mt-3">Attribuer matieres</button>
+
+        </div>
+
+       
+      </form>
+        </div>
+
+  </div>
+</div>
+
+
+
+
+
+<!---PoupUP affecter un list des groupes a un enseignant-->
+
+<div class="popup" *ngIf=" showPopupAffGrp">
+  <div class="popup-content">
+    <span class="close" (click)="togglePopupAffGrp()">&times;</span>
+    
+       <div class="container">
+    <h2>Affectation des Groupes</h2>
+    <hr>
+    <form (ngSubmit)="onAttribueGrps()">             
+        <div class="mb-3">
+         
+            <label for="listGroupeofEns" class="form-label">Groupes</label>
+            <ng-select [(ngModel)]="groupeSelectionnee" name="listGroupeofEns" [multiple]="true" [closeOnSelect]="false">
+              <ng-option *ngFor="let groupe of listGroupeofEns" [value]="groupe">{{groupe.nomGrp}}</ng-option>
+           </ng-select>
+        
+          <button class="btn btn-primary mt-3">Attribuer groupes</button>
+
+        </div>
+
+       
+      </form>
+        </div>
+
+  </div>
+</div>

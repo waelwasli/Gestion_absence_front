@@ -1,0 +1,176 @@
+
+
+<nav>
+    <ul>
+      <li><a>Administration</a></li>
+      <li (click)="togglePopup()"><a >Création d'un Enseignant</a></li>
+      <li (click)="togglePopupetd()"><a>Création d'un Etudiant</a></li>
+      <li (click)="togglePopupGrp()"><a> Groupes</a></li>
+      <li (click)="togglePopupMat()"><a> Matiére</a></li>
+      <li><button class="btn btn-success"  (click)="GoToLogin()">Deconneter</button></li>
+      
+    </ul>
+  </nav>
+
+
+  <app-adminpage></app-adminpage>
+
+
+
+ 
+
+ 
+ <!--PopuP ETUDIANT-->
+
+ <div class="popup" *ngIf="showPopupetd" >   
+  <div class="popup-content">               
+    <span class="close" (click)="togglePopupetd()">&times;</span>   
+<div class="container">
+    <h2>Creation du Compte Etudiant</h2>
+    <hr>
+    <form (ngSubmit)="onSubmitetud()">              
+        <div>
+            <label for="firstname" class="form-label">FirstName</label>
+            <input type="text" class="form-control" name="firstName" id="firstname" [(ngModel)]="etudiant.firstName" required>
+        </div>
+
+        <div>
+            <label for="lastname" class="form-label">LastName</label>
+            <input type="text" class="form-control" name="lastName" id="lastname" [(ngModel)]="etudiant.lastName" required >
+        </div>
+
+        <div>
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" name="email" id="email" [(ngModel)]="etudiant.email" required >
+        
+        </div>
+
+        <div>
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="password" [(ngModel)]="etudiant.password" required >
+        </div>
+          <div>
+              <label for="photo" class="form-label">Photo</label>
+              <input type="text" class="form-control" name="photo" id="photo" [(ngModel)]="etudiant.imageUrl" required >
+          </div>  
+          <div class="mb-3">
+            <label for="groupe" class="form-label">Groupe</label>
+      <select  name="groupe" id="groupe" class="form-select" [(ngModel)]="etudiant.groupe"  required>
+        <option *ngFor="let groupe of groupes" [ngValue]="groupe">{{groupe.nomGrp}}</option>
+        
+      </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary form-control">Créer</button>
+      </form>
+</div>
+  </div>
+</div>  
+
+
+<!------------------------------------------------------------------------------->
+
+
+<!--popup enseignant-->
+<div class="popup" *ngIf="showPopup">
+    <div class="popup-content">
+      <span class="close" (click)="togglePopup()">&times;</span>
+      
+  <div class="container">
+      <h2>Creation du Compte Enseignant</h2>
+      <hr>
+      <form  (ngSubmit)="onSubmit()" >
+          <div class="form-group">
+              <label for="firstname" class="form-label">FirstName</label>
+              <input type="text" class="form-control" name="firstName" id="firstname" [(ngModel)]="enseignant.firstName" required>
+          </div>
+  
+          <div class="form-group">
+              <label for="lastname" class="form-label">LastName</label>
+              <input type="text" class="form-control" name="lastName" id="lastname" [(ngModel)]="enseignant.lastName" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email address</label>
+            <input  pattern=".+@enicar.enseignant.com" type="email" class="form-control" name="email" id="email" [(ngModel)]="enseignant.email"  required>
+          
+          </div>
+  
+          <div class="form-group">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" name="password" id="password" [(ngModel)]="enseignant.password"  required>
+          </div>
+
+          <div class="mb-3" class="form-group">
+            <label for="matiere" class="form-label">Matiere</label>
+             <select  name="matiere" id="matiere" class="form-select" [(ngModel)]="enseignant.matiere"  required><!--[(ngModel)]="enseignant.matiereId"-->
+                 <option *ngFor="let matiere of matieres" [ngValue]="matiere" >{{matiere.nomMat}}</option>
+                
+             </select>
+           </div>
+
+            <div class="form-group">
+                <label for="photo" class="form-label">Photo</label>
+                <input type="text" class="form-control" name="imageUrl"  id="photo" [(ngModel)]="enseignant.imageUrl" required>
+            </div> 
+         <!--<div class="mb-3">
+              <label for="groupe" class="form-label">Groupe</label>
+            <select  name="groupe" id="groupe" class="form-select" [(ngModel)]="enseignant.groupe"  required> 
+          <option *ngFor="let groupe of groupes" [ngValue]="groupe" >{{groupe.nomGrp}}</option>
+         
+        </select>
+        </div>-->   
+          
+             
+          <button  type="submit"  class="btn btn-primary form-control" >Créer</button>
+        </form>
+  </div>
+  
+    </div>
+  </div>
+<!----------------------------------------------------->
+
+<!--POPUP GROUP-->
+
+<div class="popup" *ngIf="showPopupGrp">
+  <div class="popup-content">
+    <span class="close" (click)="togglePopupGrp()">&times;</span>
+    
+       <div class="container">
+    <h2>Creation d'un Groupe</h2>
+    <hr>
+    <form (ngSubmit)="onSubmitGrp()">
+        <div class="mb-3">
+            <label for="nomgroupe" class="form-label">Nom du Groupe: </label>
+            <input type="text" class="form-control" name="nomgroupe" id="nomgroupe" [(ngModel)]="groupe.nomGrp" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" >Créer</button>
+      </form>
+        </div>
+
+  </div>
+</div>
+
+<!-------------------------------------------------->
+<!--POPUP Matiere-->
+ 
+<div class="popup" *ngIf="showPopupMat">
+  <div class="popup-content">
+    <span class="close" (click)="togglePopupMat()">&times;</span>
+    
+       <div class="container">
+    <h2>Creation d'une Matiére</h2>
+    <hr>
+    <form (ngSubmit)="onSubmitMat()">
+        <div class="mb-3">
+            <label for="nommatiere" class="form-label">Nom du Matiére: </label>
+            <input type="text" class="form-control" name="nommatiere" id="nommatiere" [(ngModel)]="matiere.nomMat" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" >Créer</button>
+      </form>
+        </div>
+
+  </div>
+</div>
